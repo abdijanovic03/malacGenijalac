@@ -1,9 +1,14 @@
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
 .screen {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(180deg, #211540 0%, #241EA9 100%);
+  font-family: 'Inter';
   margin: 0;
   position: absolute;
   text-align: center;
   min-height: 100vh;
-  min-width: 100vw;
+  min-width: 100%;
+  overflow-x: hidden;
   color: white;
 }
 .logoSpacers {
@@ -15,10 +20,11 @@
 }
 @media screen and (max-width: 768px) {
   .screen{
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(180deg, #211540 0%, #241EA9 100%);
+    min-height: 1500px;
   }
   .mainContent {    
     margin-top: 81px;
+    height: 391px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -34,19 +40,109 @@
     margin-bottom: 0;
   }
   .aboutGameHeader{
-    width: 360px;
+    width: 87%;
+    max-width: 420px;
     height: 86px;
     margin-top: 3px;
+    margin-bottom: 0px;
     font-weight: 900;
     font-size: 80px;
   }
+  .aboutGameHeader > img{
+    width: 100%;
+  }
+  .aboutGameSubheader{
+    width: 186px;
+    height: 47px;
+    margin-top: 79px;
+    font-weight: 800;
+    font-size: 20px;
+  }
+  .aboutGameSubtext{
+    width: 280px;
+    height: 64px;
+    left: 52px;
+    top: 409px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+    font-size: 12px;
+  }
+  .aliens{
+    position: relative;
+    margin-top: 94px;
+    height: 468px;
+    transition: 1s ease-in-out;
+    display: flex;
+    justify-content: center;
+  }
+  .alien, .image-gallery{
+    position: relative;
+    top: 50px;
+    z-index: 1;
+  }
+  .alienBG{
+    transition: 1s ease-in-out; 
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    transition: background-image 0.5s ease-in-out;
+  }
+  .details{
+    margin: 0px;
+    margin-top: 61px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .details span{
+    width: 40%;
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .details button{
+    color: white;
+    margin-top: 20px;
+    width: 280px;
+    height: 84px;
+    border: 1px solid #FFFFFF;
+    border-radius: 100px;
+    background: transparent;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 16px;
+    line-height: 32px;
+  }
+  .details button:active{
+    background: #9C9C9C;
+  }
+  .footer{
+    position: relative;
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .footerText{
+    width: 80%;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+  }
+  .footerMedia{
+    width: 90%;
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between
+  }
+  .footerMedia div{
+    display: flex;
+    width: 30%;
+    justify-content: space-between;
+  }
 }
-
-
-
-
-
-
 .App-link {
   color: #61dafb;
 }
