@@ -1,44 +1,72 @@
+//Icons
 import logo from "./logoSpacers.svg";
 import spacers from "./SPACERS.svg";
-import "./App.css";
-import "@fontsource/inter/400.css";
-import cyclo from "./cyclo/cycloStanding.svg";
-import cycloBG from "./cyclo/cycloBackground.svg";
-import ImageGallery from "react-image-gallery";
-import greenAlien from "./alien/greenAlien.svg";
-import astro from "./astro/astro.svg";
-import astroBG from "./astro/astroBG.svg";
-import greenAlienBG from "./alien/greenAlienBG.svg";
+import cyclo from "./images/cycloStanding.svg";
+import greenAlien from "./images/greenAlien.svg";
+import astro from "./images/astro.svg";
 import facebook from "./socials/facebook.svg";
 import instagram from "./socials/instagram.svg";
 import twitter from "./socials/twitter.svg";
+
+//Css
+import "@fontsource/inter/400.css";
+import "./App.css";
+
+//Other
 import { useState } from "react";
 
-const images = [
+
+const characters = [
   {
-    original: greenAlien,
-    background: greenAlienBG,
+    id: 1,
+    name: "Cyclo",
+    background: "#501ED8",
+    svg: cyclo,
   },
   {
-    original: astro,
-    background: astroBG,
+    id: 2,
+    name: "Astro",
+    background: "#2F2CC8",
+    svg: astro,
   },
   {
-    original: greenAlien,
-    background: cycloBG,
+    id: 3,
+    name: "Alien",
+    background: "#1B991A",
+    svg: greenAlien,
   },
-  
 ];
 
 function App() {
-  // eslint-disable-next-line no-unused-vars
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const handleSlide = (currentIndex) => {
-    setCurrentIndex(currentIndex);
+  const [currentCharacter, setCurrentCharacter] = useState(characters[0]);
+  const [transitioning, setTransitioning] = useState(false);
+  let startX, endX;
+
+  const handleSwipe = (direction) => {
+    if (transitioning) return;
+    setTransitioning(true);
+
+    const currentIndex = characters.findIndex(
+      (character) => character.id === currentCharacter.id
+    );
+
+    let newIndex;
+    if (direction === "left") {
+      newIndex = currentIndex === 0 ? characters.length - 1 : currentIndex - 1;
+    } else if (direction === "right") {
+      newIndex = currentIndex === characters.length - 1 ? 0 : currentIndex + 1;
+    }
+
+    setCurrentCharacter(characters[newIndex]);
+
+    setTimeout(() => {
+      setTransitioning(false);
+    }, 500);
   };
   return (
     <div className="screen">
       <img src={logo} className="logoSpacers" alt="Spacers" />
+      <div className="mainContentBG"></div>
       <div className="mainContent">
         <p className="aboutGameText">
           Inovativna igra koja spaja AI, AR i klasičnu arkadnu akciju
@@ -54,21 +82,33 @@ function App() {
         </p>
       </div>
       <div className="aliens">
-        <img
-          className="alienBG"
-          src={images[currentIndex].background}
-          alt="characterBackground"
-        />
-        <ImageGallery
-          className="alien"
-          onSlide={handleSlide}
-          items={images}
-          showThumbnails={false}
-          showFullscreenButton={false}
-          showPlayButton={false}
-          autoPlay
-          showNav={false}
-        />
+        <div
+          className={`character-swiper ${transitioning ? "transitioning" : ""}`}
+          style={{ backgroundColor: currentCharacter.background }}
+          onTouchStart={(e) => (startX = e.touches[0].clientX)}
+          onTouchMove={(e) => (endX = e.touches[0].clientX)}
+          onTouchEnd={() => {
+            if (startX - endX > 50) {
+              handleSwipe("left");
+            } else if (endX - startX > 50) {
+              handleSwipe("right");
+            }
+          }}
+        >
+          <div className="character-container">
+            {characters.map((character) => (
+              <img
+                key={character.id}
+                id={character.name}
+                src={character.svg}
+                alt={character.name}
+                className={`character ${
+                  currentCharacter.id === character.id ? "active" : ""
+                }`}
+              />
+            ))}
+          </div>
+        </div>
       </div>
       <div className="details">
         <span>Iskusite digitalni univerzum kao nikad do sad</span>
@@ -76,7 +116,10 @@ function App() {
       </div>
       <div className="footer">
         <div className="footerText">
-          <span>Ovaj projekat je realizovan kroz izuzetnu saradnju Arcosix-a, IDK Studio i Malac Računalac, Bihać</span>
+          <span>
+            Ovaj projekat je realizovan kroz izuzetnu saradnju Arcosix-a, IDK
+            Studio i Malac Računalac, Bihać
+          </span>
         </div>
         <div className="footerMedia">
           <span>© 2023</span>
