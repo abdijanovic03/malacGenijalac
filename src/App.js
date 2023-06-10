@@ -4,7 +4,6 @@ import spacers from "./SPACERS.svg";
 import cyclo from "./images/cycloStanding.svg";
 import greenAlien from "./images/greenAlien.svg";
 import astro from "./images/astro.svg";
-import headerBackground from "./images/headerBackground.svg";
 import facebook from "./socials/facebook.svg";
 import instagram from "./socials/instagram.svg";
 import twitter from "./socials/twitter.svg";
